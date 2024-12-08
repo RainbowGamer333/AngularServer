@@ -19,7 +19,6 @@ mongoose.connect(uri, options)
   .then(() => {
     console.log("Connecté à la base MongoDB assignments dans le cloud !");
     console.log("at URI = " + uri);
-    console.log("vérifiez with http://localhost:8010/api/assignments que cela fonctionne")
     },
     err => {
       console.log('Erreur de connexion: ', err);
@@ -43,7 +42,8 @@ let port = process.env.PORT || 8010;
 const prefix = '/api';
 
 app.route(prefix + '/assignments')
-  .get(assignment.getAssignments);
+  .get(assignment.getAssignments)
+  .delete(assignment.deleteAssignment);
 
 app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
@@ -56,7 +56,7 @@ app.route(prefix + '/assignments')
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
-console.log('Serveur démarré sur http://localhost:' + port);
+console.log('Serveur démarré');
 
 module.exports = app;
 
